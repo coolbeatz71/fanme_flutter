@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:fanme_flutter/views/widgets/common/buttons.dart';
-import 'package:fanme_flutter/models/login.dart';
+import 'package:fanme_flutter/models/register.dart';
 import 'package:fanme_flutter/core/validator.dart';
+import 'package:intl/intl.dart';
 
-class LoginForm extends StatefulWidget {
-  final Login login;
+// TODO: I have to handle email duplication on firebase
+class RegisterForm extends StatefulWidget {
+  final Register register;
 
-  const LoginForm({
+  const RegisterForm({
     Key key,
-    this.login,
+    this.register,
   }) : super(key: key);
 
   @override
-  _LoginFormState createState() => _LoginFormState();
+  _RegisterFormState createState() => _RegisterFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _RegisterFormState extends State<RegisterForm> {
   bool _autoValidate = false;
   bool _isPasswordHidden = true;
   bool _isButtonDisabled = false;
@@ -24,15 +25,19 @@ class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
 
   /// Text controllers
+  TextEditingController _pseudoCtrl;
   TextEditingController _emailCtrl;
   TextEditingController _passwordCtrl;
+  TextEditingController _confPasswordCtrl;
 
   @override
   void initState() {
     super.initState();
 
+    _pseudoCtrl = TextEditingController(text: '');
     _emailCtrl = TextEditingController(text: '');
     _passwordCtrl = TextEditingController(text: '');
+    _confPasswordCtrl = TextEditingController(text: '');
   }
 
   @override
@@ -42,6 +47,17 @@ class _LoginFormState extends State<LoginForm> {
       autovalidate: _autoValidate,
       child: Column(
         children: <Widget>[
+          TextFormField(
+            controller: _pseudoCtrl,
+            validator: (value) => RegisterValidator.pseudo('pseudo', value),
+            decoration: buildInputDecoration(
+              isTextArea: false,
+              isPassword: false,
+              hintText: 'pseudo',
+              prefixIcon: Icons.person,
+            ),
+          ),
+          SizedBox(height: 20),
           TextFormField(
             controller: _emailCtrl,
             validator: (value) => Validator.email('email', value),
@@ -64,19 +80,23 @@ class _LoginFormState extends State<LoginForm> {
               prefixIcon: Icons.lock,
             ),
           ),
-          SizedBox(height: 20.0),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              'Forgotten password?',
-              style: TextStyle(
-                decoration: TextDecoration.underline,
-                fontSize: 16,
-              ),
+          SizedBox(height: 20),
+          TextFormField(
+            controller: _confPasswordCtrl,
+            validator: (value) => RegisterValidator.confPassword(
+              ['password', 'confirm password'],
+              [_passwordCtrl.text, value],
+            ),
+            obscureText: _isPasswordHidden,
+            decoration: buildInputDecoration(
+              isTextArea: false,
+              isPassword: true,
+              hintText: 'confirm password',
+              prefixIcon: Icons.lock,
             ),
           ),
           SizedBox(height: 20.0),
-          buildSubmiButton(context, widget.login)
+          buildSubmiButton(context, widget.register)
         ],
       ),
     );
@@ -123,13 +143,13 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  Widget buildSubmiButton(BuildContext context, Login login) {
+  Widget buildSubmiButton(BuildContext context, Register register) {
     return Container(
       width: double.infinity,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12.0),
         child: LoginButton(
-          text: 'Login',
+          text: 'Register',
           onPressed: _isButtonDisabled
               ? null
               : () {

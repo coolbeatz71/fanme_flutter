@@ -1,14 +1,11 @@
-import 'package:fanme_flutter/core/helpers.dart';
 import 'package:flutter/material.dart';
+import 'package:fanme_flutter/core/helpers.dart';
 import 'package:fanme_flutter/core/fade_animation.dart';
 import 'package:fanme_flutter/views/widgets/common/buttons.dart';
+import 'package:fanme_flutter/views/widgets/common/bottomsheet.dart';
 
 class Home extends StatelessWidget {
   const Home({Key key}) : super(key: key);
-
-  showLoginModal(BuildContext context) {
-    Helpers.showBottomSheet(context);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +120,10 @@ class Home extends StatelessWidget {
                           child: LoginButton(
                             text: 'Login',
                             onPressed: () {
-                              showLoginModal(context);
+                              Helpers.showBottomSheetModal(
+                                context,
+                                LoginBottomSheetContainer(),
+                              );
                             },
                           ),
                         ),
@@ -139,9 +139,16 @@ class Home extends StatelessWidget {
                           ),
                         ),
                         FlatButton(
-                          onPressed: () => null,
+                          onPressed: () {
+                            Helpers.showBottomSheetModal(
+                              context,
+                              RegisterBottomSheetContainer(),
+                            );
+                          },
                           padding: EdgeInsets.symmetric(
-                              vertical: 18, horizontal: 40),
+                            vertical: 18,
+                            horizontal: 40,
+                          ),
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(

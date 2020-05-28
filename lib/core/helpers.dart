@@ -1,14 +1,17 @@
-import 'package:fanme_flutter/views/widgets/common/bottomsheet.dart';
 import 'package:flutter/material.dart';
 
 class Helpers {
   Helpers();
 
-  Helpers.showBottomSheet(BuildContext context) {
+  Helpers.showBottomSheet(BuildContext context, Widget bottomSheet) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (context) => BottomSheetContainer(),
+      builder: (context) => bottomSheet,
     );
+  }
+
+  Helpers.showBottomSheetModal(BuildContext context, Widget bottomSheet) {
+    Helpers.showBottomSheet(context, bottomSheet);
   }
 }
