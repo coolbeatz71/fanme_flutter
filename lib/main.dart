@@ -1,4 +1,5 @@
-import 'package:fanme_flutter/views/pages/home/home.dart';
+// import 'package:fanme_flutter/views/pages/home/home.dart';
+import 'package:fanme_flutter/views/pages/profile/profile.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Color(0xFF003049),
       ),
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: Profile(),
     );
   }
 }
