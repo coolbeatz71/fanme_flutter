@@ -66,7 +66,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: widget.items.map((item) {
                 var index = widget.items.indexOf(item);
-                item.setIndex(index);
+                item.index = index;
 
                 return GestureDetector(
                   onTap: () {

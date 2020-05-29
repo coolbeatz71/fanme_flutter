@@ -4,33 +4,9 @@ import 'package:fanme_flutter/views/widgets/common/tabbar/custom_tabbar_theme.da
 
 // ignore: must_be_immutable
 class CustomTabBarItem extends StatelessWidget {
-  int index;
-  int selectedIndex;
-  CustomTabBarTheme theme;
-  bool showSelectedItemShadow;
-  double itemWidth;
-
   final String label;
   final IconData iconData;
   final Duration animationDuration;
-
-  Color selectedBackgroundColor;
-  Color selectedForegroundColor;
-  Color selectedLabelColor;
-
-  void setIndex(int index) {
-    this.index = index;
-  }
-
-  Color _getDerivedBorderColor() =>
-      theme.selectedItemBorderColor ?? theme.barBackgroundColor;
-
-  Color _getBorderColor(bool isOn) =>
-      isOn ? _getDerivedBorderColor() : Colors.transparent;
-
-  bool get _isItemSelected => index == selectedIndex;
-
-  static const kDefaultAnimationDuration = Duration(milliseconds: 1500);
 
   CustomTabBarItem({
     Key key,
@@ -43,7 +19,31 @@ class CustomTabBarItem extends StatelessWidget {
     this.animationDuration = kDefaultAnimationDuration,
   }) : super(key: key);
 
-  Center _makeLabel(String label) {
+  int _index;
+  int selectedIndex;
+  CustomTabBarTheme theme;
+  bool showSelectedItemShadow;
+  double itemWidth;
+
+  Color selectedBackgroundColor;
+  Color selectedForegroundColor;
+  Color selectedLabelColor;
+
+  static const kDefaultAnimationDuration = Duration(milliseconds: 1500);
+
+  set index(int index) {
+    _index = index;
+  }
+
+  bool get _isItemSelected => _index == selectedIndex;
+
+  Color _getDerivedBorderColor() =>
+      theme.selectedItemBorderColor ?? theme.barBackgroundColor;
+
+  Color _getBorderColor(bool isOn) =>
+      isOn ? _getDerivedBorderColor() : Colors.transparent;
+
+  Center _buildLabel(String label) {
     bool isSelected = _isItemSelected;
     return isSelected
         ? Center()
@@ -119,7 +119,7 @@ class CustomTabBarItem extends StatelessWidget {
     double topOffset = isSelected ? -12 : -16.5;
     double iconTopSpacer = 0;
 
-    Widget labelWidget = _makeLabel(label);
+    Widget labelWidget = _buildLabel(label);
     Widget iconAreaWidget = _buildIconArea(itemWidth, iconData);
 
     return AnimatedContainer(
