@@ -3,6 +3,7 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:fanme_flutter/views/widgets/common/tabbar/custom_tabbar.dart';
 import 'package:fanme_flutter/views/widgets/common/tabbar/custom_tabbar_item.dart';
 import 'package:fanme_flutter/views/widgets/common/tabbar/custom_tabbar_theme.dart';
+import 'package:fanme_flutter/views/widgets/common/drawer/custom_drawer.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key key}) : super(key: key);
@@ -19,57 +20,73 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('title'),
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+          color: Color(0xFF003049),
+        ),
+        title: RichText(
+          text: TextSpan(
+            text: 'fanme',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF003049),
+            ),
+          ),
+        ),
       ),
+      drawer: CustomDrawer(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Demonstration',
-            ),
+            Text('Demonstration'),
           ],
         ),
       ),
-      bottomNavigationBar: CustomTabBar(
-        theme: CustomTabBarTheme(
-          barBackgroundColor: Color(0x89EFEFEF),
-          selectedItemBorderColor: Colors.white,
-          selectedItemBackgroundColor: Color(0xFFF77F00),
-          selectedItemIconColor: Color(0xFF003049),
-          unselectedItemIconColor: Color(0xFF7A8FA6),
-          unselectedItemLabelColor: Color(0xFF7A8FA6),
-          selectedItemLabelColor: Color(0xFF003049),
-        ),
-        selectedIndex: selectedIndex,
-        onSelectTab: (index) {
-          setState(() {
-            selectedIndex = index;
-          });
-        },
-        items: [
-          CustomTabBarItem(
-            iconData: AntIcons.calendar_outline,
-            label: 'Event',
-          ),
-          CustomTabBarItem(
-            iconData: AntIcons.message_outline,
-            label: 'Message',
-          ),
-          CustomTabBarItem(
-            iconData: AntIcons.home_outline,
-            label: 'Home',
-          ),
-          CustomTabBarItem(
-            iconData: AntIcons.bell_outline,
-            label: 'Notification',
-          ),
-          CustomTabBarItem(
-            iconData: AntIcons.user,
-            label: 'Profile',
-          ),
-        ],
+      bottomNavigationBar: buildCustomTabBar(),
+    );
+  }
+
+  CustomTabBar buildCustomTabBar() {
+    return CustomTabBar(
+      theme: CustomTabBarTheme(
+        selectedItemBorderColor: Colors.white,
+        barBackgroundColor: Color(0x89EFEFEF),
+        selectedItemBackgroundColor: Color(0xFFF77F00),
+        selectedItemIconColor: Color(0xFF003049),
+        unselectedItemIconColor: Color(0xFF7A8FA6),
+        unselectedItemLabelColor: Color(0xFF7A8FA6),
+        selectedItemLabelColor: Color(0xFF003049),
       ),
+      selectedIndex: selectedIndex,
+      onSelectTab: (index) {
+        setState(() {
+          selectedIndex = index;
+        });
+      },
+      items: [
+        CustomTabBarItem(
+          iconData: AntIcons.calendar_outline,
+          label: 'Event',
+        ),
+        CustomTabBarItem(
+          iconData: AntIcons.message_outline,
+          label: 'Message',
+        ),
+        CustomTabBarItem(
+          iconData: AntIcons.home_outline,
+          label: 'Home',
+        ),
+        CustomTabBarItem(
+          iconData: AntIcons.bell_outline,
+          label: 'Notification',
+        ),
+        CustomTabBarItem(
+          iconData: AntIcons.user,
+          label: 'Profile',
+        ),
+      ],
     );
   }
 }
