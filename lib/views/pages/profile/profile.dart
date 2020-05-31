@@ -20,20 +20,22 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(
-          color: Color(0xFF003049),
-        ),
+        elevation: 0,
         title: RichText(
           text: TextSpan(
             text: 'fanme',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF003049),
             ),
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(AntIcons.search_outline),
+          )
+        ],
       ),
       drawer: CustomDrawer(),
       body: Center(
