@@ -17,7 +17,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  bool _autoValidate = false;
+  AutovalidateMode _autoValidate = AutovalidateMode.disabled;
   bool _isPasswordHidden = true;
   bool _isButtonDisabled = false;
 
@@ -39,7 +39,7 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      autovalidate: _autoValidate,
+      autovalidateMode: _autoValidate,
       child: Column(
         children: <Widget>[
           TextFormField(
@@ -135,7 +135,7 @@ class _LoginFormState extends State<LoginForm> {
               : () {
                   if (_formKey.currentState.validate()) {
                   } else {
-                    setState(() => _autoValidate = true);
+                    setState(() => _autoValidate = AutovalidateMode.always);
                   }
                 },
         ),
