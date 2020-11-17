@@ -18,7 +18,7 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
-  bool _autoValidate = false;
+  AutovalidateMode _autoValidate = AutovalidateMode.disabled;
   bool _isPasswordHidden = true;
   bool _isButtonDisabled = false;
 
@@ -44,7 +44,7 @@ class _RegisterFormState extends State<RegisterForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      autovalidate: _autoValidate,
+      autovalidateMode: _autoValidate,
       child: Column(
         children: <Widget>[
           TextFormField(
@@ -155,7 +155,7 @@ class _RegisterFormState extends State<RegisterForm> {
               : () {
                   if (_formKey.currentState.validate()) {
                   } else {
-                    setState(() => _autoValidate = true);
+                    setState(() => _autoValidate = AutovalidateMode.always);
                   }
                 },
         ),
